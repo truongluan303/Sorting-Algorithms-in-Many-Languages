@@ -167,6 +167,14 @@ let mergeSort = arr => {
 
 
 /**
+ * Counting Sort
+ * 
+ * Counting sort works by iterating through the input, counting the 
+ * number of times each item occurs, and using those counts to compute 
+ * an item's index in the final, sorted array.
+ * Counting sort is the only sorting algorithm that is linear in time.
+ * However, counting sort is only useful when the largest number in
+ * the input is small. Otherwise, it will take up a large space
  * 
  * @param arr the array to be sorted 
  */
