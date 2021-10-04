@@ -167,6 +167,50 @@ let mergeSort = arr => {
 
 
 /**
+ * 
+ * @param arr the array to be sorted 
+ */
+function countingSort(arr) {
+
+    let result = new Array(arr.length);
+    let max = 0;
+
+    // find the largest element in the given array
+    for (let i = 0; i < arr.length; i++) {
+        max = (arr[i] > max) ? arr[i] : max;
+    }
+
+    // count the occurence for each element in the array
+    let count = new Array(max + 1);
+    for (let i = 0; i < max + 1; i++) {
+        count[i] = 0;
+    }
+    for (let i = 0; i < arr.length; i++) {
+        count[arr[i]]++;
+    }
+
+    // get the running sum for each cell in the count
+    // also decrease each cell by 1 since array is 0-indexed
+    count[0]--;
+    for (let i = 1; i < count.length; i++) {
+        count[i] += count[i - 1];
+    }
+
+    // insert the elements into the result array at correct index
+    for (let i = arr.length - 1; i >= 0; i--) {
+        let val = arr[i];
+        let idx = count[val];
+        result[idx] = val;
+        count[val]--;
+    }
+    return result;
+}
+
+
+
+
+
+/**
  * Swap 2 indices in an array.
  * 
  * @param arr the array where indices will be swapped
@@ -206,7 +250,7 @@ for (let i = 0; i < 1000; i++) {
     let arr1 = []
     let arr2 = []
 
-    for (let j = 0; j < 500; j++) {
+    for (let j = 0; j < 1000; j++) {
         let randNum = Math.floor(Math.random() * 100);
         arr1.push(randNum);
         arr2.push(randNum);
@@ -220,7 +264,8 @@ for (let i = 0; i < 1000; i++) {
     // selectionSort(arr2);
     // bubbleSort(arr2);
     // quickSort(arr2);
-    mergeSort(arr2);
+    // mergeSort(arr2);
+    arr2 = countingSort(arr2);
     
     const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 

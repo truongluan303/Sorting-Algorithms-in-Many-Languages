@@ -1,7 +1,10 @@
+import time
+
+
 ##################################################################
 ######################### SELECTION SORT #########################
 
-def selection_sort(array):
+def selection_sort(array: list) -> None:
     ''' 
     Selection sort 
     ---------------------
@@ -28,7 +31,7 @@ def selection_sort(array):
 ###################################################################
 ######################### BUBBLE SORT #############################
 
-def bubble_sort(array):
+def bubble_sort(array: list) -> None:
     ''' 
     Bubble sort 
     --------------------
@@ -52,11 +55,13 @@ def bubble_sort(array):
 
 
 
-def bubble_sort_recursive(array):
-    ''' A Recursive version of bubble sort'''
+def bubble_sort_recursive(array: list) -> None:
+    ''' 
+    A Recursive version of bubble sort
+    '''
 
     def bubble_sort_recursive(array, n):
-        ''' Helper function '''
+        ''' Inner helper function '''
 
         if n == 0:
             return
@@ -81,7 +86,8 @@ def bubble_sort_recursive(array):
 
 ######################################################################
 ########################## INSERTION SORT ############################
-def insertion_sort(arr):
+
+def insertion_sort(arr: list) -> None:
     ''' 
     Insertion sort 
     -------------------
@@ -116,7 +122,7 @@ def insertion_sort(arr):
 #######################################################################
 ################################# MERGE SORT ##########################
 
-def merge_sort(arr):
+def merge_sort(arr: list) -> None:
     ''' 
     Merge sort 
     ---------------
@@ -170,7 +176,7 @@ def merge_sort(arr):
 
 
 
-def merge_sort_ver2(arr):
+def merge_sort_ver2(arr: list) -> None:
     ''' 
     A slightly different way to do merge sort.
     In this version, we are not breaking the original array into subarrays.
@@ -178,7 +184,7 @@ def merge_sort_ver2(arr):
     '''
 
     def merge_sort(arr, begin, end):
-        ''' Helper function '''
+        ''' Inner helper function '''
 
         if begin < end:
 
@@ -238,8 +244,7 @@ def merge_sort_ver2(arr):
 #######################################################################
 ############################### QUICK SORT ############################
 
-# helper function
-def quick_sort(arr):
+def quick_sort(arr: list) -> None:
     ''' 
     Quick sort 
     ---------------------------
@@ -251,7 +256,7 @@ def quick_sort(arr):
     '''
 
     def quick_sort(arr, begin, end):
-        ''' Helper function '''
+        ''' Inner helper function '''
 
         if (begin < end):
 
@@ -287,6 +292,51 @@ def quick_sort(arr):
 
 
 
+#######################################################################
+############################ COUNTING SORT ############################
+
+def counting_sort(arr: list) -> list:
+    '''
+    Counting sort works by iterating through the input, counting the 
+    number of times each item occurs, and using those counts to compute 
+    an item's index in the final, sorted array.
+    Counting sort is the only sorting algorithm that is linear in time.
+    However, counting sort is only useful when the largest number in
+    the input is small. Otherwise, it will take up a large space
+    '''
+    result = list(range(len(arr)))
+
+    # find the largest number
+    largest = max(arr)
+
+    # use an array to keep track of the occurence of each number
+    count = [0] * (largest + 1)
+
+    # count the occurence for each number in the array
+    for i in arr:
+        count[i] += 1
+
+    # get the running sum at each cell for count
+    # also decrease each cell's value by 1 since array index is 0-based
+    count[0] -= 1
+    for i in range(1, len(count)):
+        count[i] += count[i - 1] 
+
+    # insert the values to its correspoding index to the result array
+    for i in range(len(arr) - 1, -1, -1):
+        val = arr[i]
+        idx = count[val]
+        result[idx] = val
+        count[val] -= 1
+
+    return result
+
+
+
+
+
+
+
 #########################################################################################
 
 import random
@@ -307,7 +357,11 @@ def main():
 
     print("\nTesting...")
 
-    for __ in range(1000):
+    RANGE = 1000
+
+    total_time = 0
+
+    for __ in range(RANGE):
 
         arr1 = []
         arr2 = []
@@ -320,6 +374,8 @@ def main():
 
         arr1.sort(reverse=False)
 
+        start_t = time.time()
+
         # un-comment to test the desired sorting algorithm.
 
         # bubble_sort(arr2)
@@ -328,7 +384,13 @@ def main():
         # selection_sort(arr2)
         # quick_sort(arr2)
         # merge_sort_ver2(arr2)
+        # arr2 = counting_sort(arr2)
         merge_sort(arr2)
+
+        end_t = time.time()
+
+        executed_t = (end_t - start_t)
+        total_time += executed_t
 
 
         for i in range(len(arr1)):
@@ -344,10 +406,10 @@ def main():
                 break
 
     if not passed:
-        print('\n\n*********************** F A I L E D ***********************\n\n')
+        print('\n\n>>> F A I L E D <<<\n\n')
     else:
-        print('\n\n*********************** P A S S E D   A L L  C A S E S ***********************\n\n')
-
+        print('\n\n>>> P A S S E D   A L L  C A S E S <<<\n')
+        print('>>> Total elapsed sorting time: ', round(total_time, 6), 'seconds\n\n')
 
 if __name__ == "__main__":
     main()

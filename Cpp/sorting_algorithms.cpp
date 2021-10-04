@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <algorithm>
+#include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -13,7 +15,7 @@ using namespace std;
 // A helper function that swaps 2 elements in the array
 //
 template <typename T>
-void swap(T arr[], int idx1, int idx2)  
+void swap(vector<T>& arr, int idx1, int idx2)  
 {  
     T temp = arr[idx1];
 
@@ -37,8 +39,10 @@ void swap(T arr[], int idx1, int idx2)
 //
 
 template <typename T>
-void insertion_sort(T arr[], int size)
+void insertion_sort(vector<T>& arr)
 {
+    int size = arr.size();
+
 	for (int i = 1; i < size; i++)
     {
         for (int j = 0; j < i; j++)
@@ -65,8 +69,10 @@ void insertion_sort(T arr[], int size)
 //
 
 template <typename T>
-void selection_sort(T arr[], int size)
+void selection_sort(vector<T>& arr)
 {
+    int size = arr.size();
+
 	for (int i = 0; i < size - 1; i++)
 	{
 		int min_idx = i;
@@ -98,8 +104,10 @@ void selection_sort(T arr[], int size)
 //
 
 template <typename T>
-void bubble_sort(T arr[], int size)
+void bubble_sort(vector<T>& arr)
 {
+    int size = arr.size();
+
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size - i - 1; j++) 
@@ -130,7 +138,7 @@ void bubble_sort(T arr[], int size)
 //
 
 template <typename T>
-void quick(T arr[], int begin, int end)
+void quick(vector<T>& arr, int begin, int end)
 {
     if (begin < end)
     {
@@ -156,9 +164,9 @@ void quick(T arr[], int begin, int end)
 
 
 template <typename T>
-void quick_sort(T arr[], int size)
+void quick_sort(vector<T>& arr)
 {
-    quick(arr, 0, size);
+    quick(arr, 0, arr.size());
 }
 //---------------------------------------------------- end of quick sort
 
@@ -176,7 +184,7 @@ void quick_sort(T arr[], int size)
 //
 
 template <typename T>
-void merge_sort(T arr[], int begin, int end)
+void merge_sort(vector<T>& arr, int begin, int end)
 {
     if (begin < end)
     {
@@ -240,11 +248,73 @@ void merge_sort(T arr[], int begin, int end)
 }
 
 template <typename T>
-void merge_sort(T arr[], int size)
+void merge_sort(vector<T>& arr)
 {
-    merge_sort(arr, 0, size - 1);
+    merge_sort(arr, 0, arr.size() - 1);
 }
 
+
+
+
+
+
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+// Counting Sort
+// Counting sort works by iterating through the input, counting the 
+// number of times each item occurs, and using those counts to compute 
+// an item's index in the final, sorted array.
+// Counting sort is the only sorting algorithm that is linear in time.
+// However, counting sort is only useful when the largest number in
+// the input is small. Otherwise, it will take up a large space
+//
+vector<int> counting_sort(vector<int> arr)
+{
+    int size = arr.size();
+    int largest = 0;
+    vector<int> result(size);
+
+    // get the largest value in the array
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] > largest)
+            largest = arr[i];
+    }
+
+    // count the number of occurence for each number
+    vector<int> count(largest + 1);
+    for (int i = 0; i < largest; i++)
+    {
+        count[i] = 0;
+    }
+    for (int i = 0; i < size; i++)
+    {
+        count[arr[i]]++;
+    }
+
+    // get the running sum at each cell for the count
+    // also decrease each cell's value by 1 since array is 0-indexed
+    count[0]--;
+    for (int i = 1; i < count.size(); i++)
+    {
+        count[i] += count[i - 1];
+    }
+
+    // now each value of count represents the last index that the number
+    // appears in the result array
+    // insert the values at the right index to the result array
+    for (int i = size - 1; i >= 0; i--)
+    {
+        int val = arr[i];
+        int idx = count[val];
+
+        result[idx] = val;
+        count[val]--;
+    }
+
+    return result;
+}
+//-------------------------------------------------- end of counting sort
 
 
 
@@ -256,8 +326,8 @@ void merge_sort(T arr[], int size)
 ////////////////////////////////////////////////////////////////////////////
 
 
-bool compare_arr(int arr1[], int arr2[], int size);
-void display_arr(int arr[], int size);
+bool compare_arr(vector<int> arr1, vector<int> arr2);
+void display_arr(vector<int> arr);
 
 //---------------------------------
 // M A I N   ==   T E S T I N G
@@ -271,9 +341,10 @@ int main()
     time(&timer);
     srand(unsigned(timer));
     bool passed = true;
+    double total_elapsed_t = 0.0;
 
-    int arr1[size];
-    int arr2[size];
+    vector<int> arr1(size);
+    vector<int> arr2(size);
 
     cout << "\n\nTesting..." << endl;
 
@@ -286,41 +357,50 @@ int main()
             arr2[i] = rand_num;
         }
 
-        sort(arr1, arr1 + size);
+        sort(arr1.begin(), arr1.end());
 
-        // selection_sort(arr2, size);
-        // bubble_sort(arr2, size);
-        // insertion_sort(arr2, size);
-        // quick_sort(arr2, size);
-        merge_sort(arr2, size);
+        auto start = chrono::high_resolution_clock::now();
 
+        // selection_sort(arr2);
+        // bubble_sort(arr2);
+        // insertion_sort(arr2);
+        // quick_sort(arr2);
+        // merge_sort(arr2);
+        arr2 = counting_sort(arr2);
 
-        if (!compare_arr(arr1, arr2, size))
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start); 
+
+        total_elapsed_t += duration.count();
+
+        if (!compare_arr(arr1, arr2))
         {
             cout << "\n\n\nFAIL" << endl;
             cout << "\nExpected:" << endl;
-            display_arr(arr1, size);
+            display_arr(arr1);
             cout << "\nResult:" << endl;
-            display_arr(arr2, size);
+            display_arr(arr2);
             passed = false;
         }
     }
 
     if (passed)
     {
-        cout << "\n\n***** P A S S E D *****\n" << endl;
+        cout << "\n\n***** P A S S E D *****\n\n";
+        total_elapsed_t /= 1000000;
+        cout << ">>>>> Total Elapsed Sorting Time: " << total_elapsed_t << " milliseconds\n\n";
     }
     else
     {
-        cout << "\n\n***** F A I L E D *****\n" << endl;
+        cout << "\n\n***** F A I L E D *****\n\n";
     }
 }
 
 
 
-void display_arr(int arr[], int size)
+void display_arr(vector<int> arr)
 {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < arr.size(); i++)
     {
         cout << arr[i] << "  ";
     }
@@ -329,9 +409,12 @@ void display_arr(int arr[], int size)
 
 
 
-bool compare_arr(int arr1[], int arr2[], int size)
+bool compare_arr(vector<int> arr1, vector<int> arr2)
 {
-    for (int i = 0; i < size; i++) 
+    if (arr1.size() != arr2.size())
+        return false;
+
+    for (int i = 0; i < arr1.size(); i++) 
     {
         if (arr1[i] != arr2[i])
         {
