@@ -1,5 +1,3 @@
-package java;
-
 import java.util.Arrays;
 import java.lang.Math;
 import java.util.Random;
@@ -40,11 +38,12 @@ public class SortingAlgorithms<T extends Comparable<? super T>> {
 
             Arrays.sort(copy_arr);
 
-            sorter.quickSort(arr);
+            // sorter.quickSort(arr);
             // sorter.mergeSort(arr);
             // sorter.insertionSort(arr);
             // sorter.selectionSort(arr);
             // sorter.bubbleSort(arr);
+			arr = sorter.countingSort(arr);
 
             for (int j = 0; j < size; j++) {
                 if (copy_arr[j] != arr[j]) {
@@ -272,6 +271,61 @@ public class SortingAlgorithms<T extends Comparable<? super T>> {
             }
         }
     }
+	
+
+
+
+
+
+	/*************************************************************************************************
+	* Counting sort works by iterating through the input, counting the 
+    * number of times each item occurs, and using those counts to compute 
+    * an item's index in the final, sorted array.
+    * Counting sort is the only sorting algorithm that is linear in time.
+    * However, counting sort is only useful when the largest number in
+    * the input is small. Otherwise, it will take up a large space
+    * 
+    * @param arr the array to be sorted
+    * @return the sorted version of the given array
+	*/
+	public Integer[] countingSort(Integer[] arr) {
+
+		int maxVal = 0;		
+
+		// get the highest value in the array
+		for (int i = 0; i < arr.length; i++) {
+			maxVal = Math.max(maxVal, arr[i]);
+		} 
+
+		int[] count = new int[maxVal + 1];
+		
+		// initialize all the counts to be -1
+		for (int i = 0; i < count.length; i++) {
+			count[i] = 0;
+		}
+
+		// get the occurences of each value in array
+		for (int i = 0; i < arr.length; i++) {
+			count[arr[i]]++;
+		}
+
+		// get the running sum at each cell
+        count[0]--;
+		for (int i = 1; i < count.length; i++) {
+			count[i] += count[i - 1];
+		}
+
+		Integer[] result = new Integer[arr.length];
+
+		for (int i = arr.length - 1; i >= 0; i--) {
+			int val = arr[i];
+			int idx = count[val];
+			result[idx] = val;
+			count[val]--;
+		}
+
+		return result;
+	}	
 
 
 
