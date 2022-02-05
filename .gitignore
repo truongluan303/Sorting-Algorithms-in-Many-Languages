@@ -14,6 +14,8 @@
 *.jar
 *.csproj
 *.cache
+*.sh
+*.bat
 bin/
 obj/
 .vscode/

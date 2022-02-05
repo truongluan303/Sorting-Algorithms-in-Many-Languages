@@ -176,7 +176,7 @@ def merge_sort(arr: list) -> None:
 
 
 
-def merge_sort_ver2(arr: list) -> None:
+def merge_sort_inplace(arr: list) -> None:
     ''' 
     A slightly different way to do merge sort.
     In this version, we are not breaking the original array into subarrays.
@@ -383,7 +383,7 @@ def main():
         # insertion_sort(arr2)
         # selection_sort(arr2)
         # quick_sort(arr2)
-        # merge_sort_ver2(arr2)
+        # merge_sort_inplace(arr2)
         # arr2 = counting_sort(arr2)
         merge_sort(arr2)
 
