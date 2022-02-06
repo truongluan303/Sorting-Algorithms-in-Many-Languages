@@ -2,13 +2,9 @@ use rand::Rng;
 
 
 
-
 pub fn bubble_sort(arr: &mut Vec<i32>) {
-
     for i in 0..arr.len() {
-
         for j in 1..(arr.len() - i) {
-
             if arr[j] < arr[j - 1] {
                 arr.swap(j, j - 1);
             }
@@ -18,15 +14,32 @@ pub fn bubble_sort(arr: &mut Vec<i32>) {
 
 
 
-
-
+// TODO: selection sort under development
 pub fn selection_sort(arr: &mut Vec<i32>) {
-
+    for i in 0..arr.len() {
+        let mut min_idx: usize = i;
+        for j in i..arr.len() {
+            if arr[j] < arr[min_idx] {
+                min_idx = j;
+            }
+        }
+        arr.swap(min_idx, i);
+    }
 }
 
 
 
-
+pub fn insertion_sort(arr: &mut Vec<i32>) {
+    for i in 1..arr.len() {
+        let key: i32 = arr[i];
+        let mut j: usize = i - 1;
+        while key < arr[j] && j >= 0 {
+            arr[j + 1] = arr[j];
+            j -= 1;
+        }
+        arr[j + 1] = key;
+    }
+}
 
 
 
@@ -54,9 +67,13 @@ fn main() {
             arr2[j] = randval;
         }
 
-        
         arr1.sort();
-        bubble_sort(&mut arr2);
+        
+        //bubble_sort(&mut arr2);
+
+        //selection_sort(&mut arr2);
+
+        //insertion_sort(&mut arr2);
 
         if arr1 != arr2 {
             println!("\n> Case {}: Failed", i + 1);

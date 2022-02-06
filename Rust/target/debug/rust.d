@@ -1,1 +1,1 @@
-/home/luan/Desktop/projects/Sorting-Algorithms-in-Many-Languages/rust/target/debug/rust: /home/luan/Desktop/projects/Sorting-Algorithms-in-Many-Languages/rust/src/main.rs
+/home/luan/Desktop/Sorting-Algorithms-in-Many-Languages/Rust/target/debug/rust: /home/luan/Desktop/Sorting-Algorithms-in-Many-Languages/Rust/src/main.rs
