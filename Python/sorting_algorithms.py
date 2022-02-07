@@ -1,15 +1,18 @@
-import time
-
-
 ##################################################################
 ######################### SELECTION SORT #########################
 
-def selection_sort(array: list) -> None:
+def selection_sort(array: list) -> list:
     ''' 
     Selection sort 
     ---------------------
     looks for the smallest value in every loop and
     puts it at the beginning of the array
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     for i in range (0, len(array) - 1):
@@ -20,23 +23,30 @@ def selection_sort(array: list) -> None:
             if array[j] < array[min_idx]:
                 min_idx = j
 
-        temp = array[min_idx]
-        array[min_idx] = array[i]
-        array[i] = temp
+        # swap the elements at i and min_idx
+        array[i], array[min_idx] =  array[min_idx], array[i]
+        
+    return array
 
-                
+
 
 
 
 ###################################################################
 ######################### BUBBLE SORT #############################
 
-def bubble_sort(array: list) -> None:
+def bubble_sort(array: list) -> list:
     ''' 
     Bubble sort 
     --------------------
     works by repeatedly swapping the adjacent elements
     if they are not in the right order.
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     for i in range (0, len(array)):
@@ -45,24 +55,27 @@ def bubble_sort(array: list) -> None:
 
             # compare the elements by pair
             if array[j] > array[j + 1]:
-
                 # swap 
-                temp = array[j]
-                array[j] = array[j + 1]
-                array[j + 1] = temp
+                array[j], array[j + 1] = array[j + 1], array[j]
+                
+    return array
 
 
 
 
 
-def bubble_sort_recursive(array: list) -> None:
+def bubble_sort_recursive(array: list) -> list:
     ''' 
     A Recursive version of bubble sort
     '''
 
-    def bubble_sort_recursive(array, n):
-        ''' Inner helper function '''
+    def bubble_sort_recursive(array: list, n: int):
+        """ Inner helper function
 
+        Args:
+            array (list):   the array
+            n (int):        current index 
+        """
         if n == 0:
             return
 
@@ -71,14 +84,13 @@ def bubble_sort_recursive(array: list) -> None:
             if array[i] > array[i + 1]:
 
                 # swap
-                temp = array[i]
-                array[i] = array[i + 1]
-                array[i + 1] = temp
+                array[i], array[i + 1] = array[i + 1], array[i]
 
         bubble_sort_recursive(array, n - 1)
 
 
     bubble_sort_recursive(array, len(array))
+    return array
 
 
 
@@ -87,7 +99,7 @@ def bubble_sort_recursive(array: list) -> None:
 ######################################################################
 ########################## INSERTION SORT ############################
 
-def insertion_sort(arr: list) -> None:
+def insertion_sort(arr: list) -> list:
     ''' 
     Insertion sort 
     -------------------
@@ -95,6 +107,12 @@ def insertion_sort(arr: list) -> None:
     The array is virtually split into a sorted and an unsorted part.
     Values from the unsorted part are picked and placed at the correct 
     position in the sorted part.
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     # Traverse through 1 to len(arr)
@@ -113,6 +131,7 @@ def insertion_sort(arr: list) -> None:
 
         arr[j + 1] = key
 
+    return arr
 
 
 
@@ -122,13 +141,19 @@ def insertion_sort(arr: list) -> None:
 #######################################################################
 ################################# MERGE SORT ##########################
 
-def merge_sort(arr: list) -> None:
+def merge_sort(arr: list) -> list:
     ''' 
     Merge sort 
     ---------------
     Divide the array in 2 halves, and keep repeating that process
     until all elements in the array are in its own array. Then put
     these elements back together in order.
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     if len(arr) > 1:
@@ -170,22 +195,34 @@ def merge_sort(arr: list) -> None:
             arr[i] = sub_right[r]
             i += 1
             r += 1
+            
+    return arr
 
 
 
 
 
 
-def merge_sort_inplace(arr: list) -> None:
+def merge_sort_inplace(arr: list) -> list:
     ''' 
     A slightly different way to do merge sort.
     In this version, we are not breaking the original array into subarrays.
     Instead, we partitioning right on the original array itself.
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     def merge_sort(arr, begin, end):
-        ''' Inner helper function '''
-
+        """ Inner helper function
+        Args:
+            arr ([type]):   the array
+            begin ([type]): the beginning index
+            end ([type]):   the ending index
+        """
         if begin < end:
 
             # find the mid point
@@ -234,7 +271,7 @@ def merge_sort_inplace(arr: list) -> None:
                 j += 1
 
     merge_sort(arr, 0, len(arr) - 1)
-
+    return arr
 
 
 
@@ -244,7 +281,7 @@ def merge_sort_inplace(arr: list) -> None:
 #######################################################################
 ############################### QUICK SORT ############################
 
-def quick_sort(arr: list) -> None:
+def quick_sort(arr: list) -> list:
     ''' 
     Quick sort 
     ---------------------------
@@ -253,6 +290,12 @@ def quick_sort(arr: list) -> None:
     left of the pivot are less than the pivot, and all on the right are bigger
     than or equal to the pivot. Then keep repeating this process on the partitions
     created.
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
 
     def quick_sort(arr, begin, end):
@@ -269,9 +312,7 @@ def quick_sort(arr: list) -> None:
                     # increase j
                     j += 1
                     # then swap arr[j] with arr[i]
-                    temp = arr[i]
-                    arr[i] = arr[j]
-                    arr[j] = temp
+                    arr[i], arr[j] = arr[j], arr[i]
 
             # the position for the pivot is where left values are less than and
             # the right values are greater than the value at the pivot position
@@ -285,7 +326,7 @@ def quick_sort(arr: list) -> None:
 
 
     quick_sort(arr, 0, len(arr)-1)
-
+    return arr
 
 
 
@@ -299,10 +340,16 @@ def counting_sort(arr: list) -> list:
     '''
     Counting sort works by iterating through the input, counting the 
     number of times each item occurs, and using those counts to compute 
-    an item's index in the final, sorted array.
+    an item's index in the final, sorted array
     Counting sort is the only sorting algorithm that is linear in time.
     However, counting sort is only useful when the largest number in
     the input is small. Otherwise, it will take up a large space
+    
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
     '''
     result = list(range(len(arr)))
 
@@ -335,81 +382,54 @@ def counting_sort(arr: list) -> list:
 
 
 
+#######################################################################
+############################## HEAP SORT ##############################
 
-
-#########################################################################################
-
-import random
-
-def main():
-    '''
-    ==================
-    T E S T   C O D E
-    ==================
+def heap_sort(arr: list) -> list:
+    """
+    Sort an array by creating a max heap using the elements of the
+    given array. Heap sort basically recursively performs 2 main
+    operations including building a heap and repeatedly delete the
+    root element of the heap formed after the build
+        
+    Args:
+        arr (list): the array to be sorted
+        
+    Returns:
+        list: the sorted array
+    """
     
-    Generate 2 identical arrays of size 500 that contain random integers.
-    Call the built in sort function to sort the first array.
-    Then use a sorting method implemented above to sort the second array.
-    If both arrays are the same after sorting, the sorting method implemented is working.
-    Repeat this process 1000 times to make sure all edge cases are reached.
-
-    '''
-
-    print("\nTesting...")
-
-    RANGE = 1000
-
-    total_time = 0
-
-    for __ in range(RANGE):
-
-        arr1 = []
-        arr2 = []
-        passed = True
-
-        for _ in range (500):
-            rand_num = random.randint(0, 100)
-            arr1.append(rand_num)
-            arr2.append(rand_num)
-
-        arr1.sort(reverse=False)
-
-        start_t = time.time()
-
-        # un-comment to test the desired sorting algorithm.
-
-        # bubble_sort(arr2)
-        # bubble_sort_recursive(arr2)
-        # insertion_sort(arr2)
-        # selection_sort(arr2)
-        # quick_sort(arr2)
-        # merge_sort_inplace(arr2)
-        # arr2 = counting_sort(arr2)
-        merge_sort(arr2)
-
-        end_t = time.time()
-
-        executed_t = (end_t - start_t)
-        total_time += executed_t
-
-
-        for i in range(len(arr1)):
-
-            if arr1[i] != arr2[i]:
-
-                passed = False
-                print("\n\nFailed Case <<<<<<<<<<<<<<<<<<<<<<<<")
-                print("Expected:")
-                print(arr1)
-                print("Result:")
-                print(arr2)
-                break
-
-    if not passed:
-        print('\n\n>>> F A I L E D <<<\n\n')
-    else:
-        print('\n\n>>> P A S S E D   A L L  C A S E S <<<\n')
-        print('>>> Total elapsed sorting time: ', round(total_time, 6), 'seconds\n\n')
-
-if __name__ == "__main__":
-    main()
+    def heapify(size: int, idx: int):
+        """
+        An inner helper function to perform max heapify process
+        Args:
+            arr (list): the array
+            size (int): the size limit
+            idx (int):  current index
+        """
+        max_idx = idx               # set the max index to be the current index
+        lidx = idx * 2 + 1          # the left child's index
+        ridx = idx * 2 + 2          # the right child's index
+        
+        # find the biggest element among the root and 2 children
+        if lidx < size and arr[lidx] > arr[max_idx]:
+            max_idx = lidx
+        if ridx < size and arr[ridx] > arr[max_idx]:
+            max_idx = ridx
+            
+        # if the max index has been changed
+        if max_idx != idx:
+            # swap the elements at current index and max index
+            arr[idx], arr[max_idx] = arr[max_idx], arr[idx]
+            # continue heapifying the affected subtree
+            heapify(size, max_idx)
+            
+            
+    for i in range(len(arr) // 2 - 1, -1, -1):
+        heapify(len(arr), i)
+        
+    for i in range(len(arr) - 1, -1, -1):
+        arr[i], arr[0] = arr[0], arr[i] # move the root to the end of the array
+        heapify(i, 0)                   # max heapify the reduced heap
+        
+    return arr

@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
     
     '''
     
-    RANGE = 100
+    RANGE = 1000
     ARR_SIZE = 500
     
 
@@ -105,6 +105,16 @@ class Test(unittest.TestCase):
         arrs1, arrs2 = self.generate_arrays()
         for i in range(self.RANGE):
             self.assertEqual(counting_sort(arrs1[i]), sorted(arrs2[i]))
+            
+            
+            
+    def test_heap_sort(self):
+        print("\nTesting heap sort...")
+        arrs1, arrs2 = self.generate_arrays()
+        for i in range(self.RANGE):
+            self.assertEqual(heap_sort(arrs1[i]), sorted(arrs2[i]))
+
+
 
 
 if __name__ == "__main__":
