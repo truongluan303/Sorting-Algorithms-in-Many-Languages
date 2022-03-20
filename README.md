@@ -1,5 +1,5 @@
 # Sorting Algorithms in Multiple Programming Languages 
-Learn many programming languages and sorting algorithms at the same time ... Yayyy! 👏
+Learn new programming languages and sorting algorithms at the same time ... Yayyy! 👏
 
 ## Progress
 
