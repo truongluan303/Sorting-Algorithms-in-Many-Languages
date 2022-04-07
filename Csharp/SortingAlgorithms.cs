@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace Csharp
 {
     class SortingAlgorithm<T> where T : IComparable
     {
-        
         /**********************************************************************
         Selection Sort
         --------------
@@ -18,7 +16,6 @@ namespace Csharp
             for (int i = 0; i < arr.Length; i++)
             {
                 int min_idx = i;
-
                 for (int j = i + 1; j < arr.Length; j++)
                 {
                     if (arr[j].CompareTo(arr[min_idx]) < 0)
@@ -32,9 +29,6 @@ namespace Csharp
                 }
             }
         }
-
-
-
 
         /**********************************************************************
         Insertion Sort
@@ -58,9 +52,6 @@ namespace Csharp
             }
         }
 
-
-
-
         /**********************************************************************
         Bubble Sort
         -----------
@@ -81,9 +72,6 @@ namespace Csharp
             }
         }
 
-
-
-
         /**********************************************************************
         Quick Sort
         ----------
@@ -98,7 +86,6 @@ namespace Csharp
             if (begin < end)
             {
                 int pivot_idx = end;
-
                 int i = begin - 1;
                 for (int j = begin; j < end; j++)
                 {
@@ -108,7 +95,6 @@ namespace Csharp
                         Swap(arr, i, j);
                     }
                 }
-
                 Swap(arr, i + 1, pivot_idx);
                 pivot_idx = i + 1;
 
@@ -117,9 +103,6 @@ namespace Csharp
                 QuickSort(arr, pivot_idx + 1, end);
             }
         }
-
-
-
 
         /**********************************************************************
         Merge Sort
@@ -143,14 +126,11 @@ namespace Csharp
                 Array.Copy(arr, mid, right, 0, arr.Length - mid);
 
                 // keep doing the same process on the subarrays
-                
                 MergeSort(left);
                 MergeSort(right);
 
-                // merge the subarrays back together
-
+                // merge the subarrays back together in sorted manner
                 int i = 0, r = 0, l = 0;               
-
                 while (l < left.Length && r < right.Length)
                 {
                     if (left[l].CompareTo(right[r]) <= 0)
@@ -167,7 +147,6 @@ namespace Csharp
                 }
 
                 // merge the leftover if there's any
-
                 while (l < left.Length)
                 {
                     arr[i] = left[l];
@@ -183,10 +162,6 @@ namespace Csharp
             }
         }
 
-
-
-
-
         /**********************************************************************
         Swap
         ----
@@ -201,13 +176,12 @@ namespace Csharp
     }
 
 
-
-
-
     ///////////////////////////////////////////////////////////////////////////
-
+    //                                                                       //
     //                          T  E  S  T  I  N  G                          //
-
+    //                                                                       //
+    ///////////////////////////////////////////////////////////////////////////
+    
     /**
     Run the test to check if the sorting algorithm passes
     ---------------------------------------------------------------------------------------
@@ -236,7 +210,6 @@ namespace Csharp
             for (int i = 0; i < REPEAT; i++) 
             {
                 bool pass = true;
-
                 // init 2 arrays with the same random numbers
                 for (int j = 0; j < SIZE; j++) 
                 {
@@ -273,7 +246,6 @@ namespace Csharp
                     Console.WriteLine(string.Join(", ", arr2));
                 }
             }
-
 
             Console.WriteLine("\n\n");
             if (finalResult)
