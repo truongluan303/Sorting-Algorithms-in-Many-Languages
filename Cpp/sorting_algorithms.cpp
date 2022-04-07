@@ -222,6 +222,7 @@ void merge_sort(vector<T>& arr)
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 // Counting Sort
+//
 // Counting sort works by iterating through the input, counting the 
 // number of times each item occurs, and using those counts to compute 
 // an item's index in the final, sorted array.
@@ -342,7 +343,8 @@ int main()
     {
         cout << "\n\n***** P A S S E D *****\n\n";
         total_elapsed_t /= 1000000;
-        cout << ">>>>> Total Elapsed Sorting Time: " << total_elapsed_t << " milliseconds\n\n";
+        cout << ">>>>> Total Elapsed Sorting Time: "
+			 << total_elapsed_t << " milliseconds\n\n";
     }
     else
     {
@@ -362,8 +364,9 @@ void display_arr(vector<int> arr)
 bool compare_arr(vector<int> arr1, vector<int> arr2)
 {
     if (arr1.size() != arr2.size())
-        return false;
-
+	{
+		return false;
+	}
     for (int i = 0; i < arr1.size(); i++) 
     {
         if (arr1[i] != arr2[i])
