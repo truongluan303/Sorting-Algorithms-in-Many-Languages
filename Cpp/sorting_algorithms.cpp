@@ -8,9 +8,6 @@
 
 using namespace std;
 
-
-
-
 //------------------------------------------------------
 // A helper function that swaps 2 elements in the array
 //
@@ -24,10 +21,6 @@ void swap(vector<T>& arr, int idx1, int idx2)
     arr[idx2] = temp;
 }  
 
-
-
-
-
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 // Insertion sort
@@ -37,7 +30,6 @@ void swap(vector<T>& arr, int idx1, int idx2)
 // Values from the unsorted part are picked and placed at the correct position 
 // in the sorted part.
 //
-
 template <typename T>
 void insertion_sort(vector<T>& arr)
 {
@@ -54,11 +46,6 @@ void insertion_sort(vector<T>& arr)
         }
     }
 }
-//------------------------------------------------- end of insertion sort
-
-
-
-
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
@@ -67,7 +54,6 @@ void insertion_sort(vector<T>& arr)
 // Selection sort looks for the smallest value in every loop and
 // puts it at the beginning of the array
 //
-
 template <typename T>
 void selection_sort(vector<T>& arr)
 {
@@ -89,11 +75,6 @@ void selection_sort(vector<T>& arr)
         }
 	}
 }
-//------------------------------------------------- end of selection sort
-
-
-
-
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
@@ -102,7 +83,6 @@ void selection_sort(vector<T>& arr)
 // Bubble sort works by repeatedly swapping the adjacent elements
 // if they are not in the right order.
 //
-
 template <typename T>
 void bubble_sort(vector<T>& arr)
 {
@@ -119,12 +99,6 @@ void bubble_sort(vector<T>& arr)
         }
     }
 }
-//-------------------------------------------------- end of bubble sort
-
-
-
-
-
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
@@ -136,7 +110,6 @@ void bubble_sort(vector<T>& arr)
 // than or equal to the pivot. Then keep repeating this process on the partitions
 // created.
 //
-
 template <typename T>
 void quick(vector<T>& arr, int begin, int end)
 {
@@ -162,17 +135,11 @@ void quick(vector<T>& arr, int begin, int end)
     }
 }
 
-
 template <typename T>
 void quick_sort(vector<T>& arr)
 {
     quick(arr, 0, arr.size());
 }
-//---------------------------------------------------- end of quick sort
-
-
-
-
 
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
@@ -182,7 +149,6 @@ void quick_sort(vector<T>& arr)
 // until all elements in the array are in its own array. Then put
 // these elements back together in order.
 //
-
 template <typename T>
 void merge_sort(vector<T>& arr, int begin, int end)
 {
@@ -253,11 +219,6 @@ void merge_sort(vector<T>& arr)
     merge_sort(arr, 0, arr.size() - 1);
 }
 
-
-
-
-
-
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 // Counting Sort
@@ -314,25 +275,18 @@ vector<int> counting_sort(vector<int> arr)
 
     return result;
 }
-//-------------------------------------------------- end of counting sort
-
-
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////
 //                          T  E  S  T  I  N  G                           //
 ////////////////////////////////////////////////////////////////////////////
 
-
 bool compare_arr(vector<int> arr1, vector<int> arr2);
 void display_arr(vector<int> arr);
 
-//---------------------------------
-// M A I N   ==   T E S T I N G
 //----------------------------------
-
+// M A I N
+//----------------------------------
 int main()
 {
     const int num_of_arr = 1000;
@@ -383,7 +337,7 @@ int main()
             passed = false;
         }
     }
-
+	
     if (passed)
     {
         cout << "\n\n***** P A S S E D *****\n\n";
@@ -396,8 +350,6 @@ int main()
     }
 }
 
-
-
 void display_arr(vector<int> arr)
 {
     for (int i = 0; i < arr.size(); i++)
@@ -406,8 +358,6 @@ void display_arr(vector<int> arr)
     }
     cout << endl;
 }
-
-
 
 bool compare_arr(vector<int> arr1, vector<int> arr2)
 {
