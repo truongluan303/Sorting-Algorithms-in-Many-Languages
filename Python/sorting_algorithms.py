@@ -29,9 +29,6 @@ def selection_sort(array: list) -> list:
     return array
 
 
-
-
-
 ###################################################################
 ######################### BUBBLE SORT #############################
 
@@ -61,9 +58,6 @@ def bubble_sort(array: list) -> list:
     return array
 
 
-
-
-
 def bubble_sort_recursive(array: list) -> list:
     ''' 
     A Recursive version of bubble sort
@@ -91,9 +85,6 @@ def bubble_sort_recursive(array: list) -> list:
 
     bubble_sort_recursive(array, len(array))
     return array
-
-
-
 
 
 ######################################################################
@@ -132,10 +123,6 @@ def insertion_sort(arr: list) -> list:
         arr[j + 1] = key
 
     return arr
-
-
-
-
 
 
 #######################################################################
@@ -197,10 +184,6 @@ def merge_sort(arr: list) -> list:
             r += 1
             
     return arr
-
-
-
-
 
 
 def merge_sort_inplace(arr: list) -> list:
@@ -274,10 +257,6 @@ def merge_sort_inplace(arr: list) -> list:
     return arr
 
 
-
-
-
-
 #######################################################################
 ############################### QUICK SORT ############################
 
@@ -329,10 +308,6 @@ def quick_sort(arr: list) -> list:
     return arr
 
 
-
-
-
-
 #######################################################################
 ############################ COUNTING SORT ############################
 
@@ -377,9 +352,6 @@ def counting_sort(arr: list) -> list:
         count[val] -= 1
 
     return result
-
-
-
 
 
 #######################################################################
