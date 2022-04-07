@@ -20,8 +20,6 @@ let insertionSort = arr => {
     }
 }
 
-
-
 /**
  * Selection Sort
  * 
@@ -31,13 +29,9 @@ let insertionSort = arr => {
  * @param arr the array to be sorted
  */
 let selectionSort = arr => {
-
     for (let i = 0; i < arr.length - 1; i++) {
-
         let min_idx = i;
-
         for (let j = i + 1; j < arr.length; j++) {
-
             if (arr[j] < arr[min_idx]) {
                 min_idx = j;
             }
@@ -48,9 +42,6 @@ let selectionSort = arr => {
     }
 };
 
-
-
-
 /**
  * Bubble Sort
  * 
@@ -60,21 +51,14 @@ let selectionSort = arr => {
  * @param arr the array to be sorted
  */
 let bubbleSort = arr => {
-
     for (let i = 0; i < arr.length; i++) {
-
         for (let j = 1; j < arr.length - i; j++) {
-
             if (arr[j] < arr[j - 1]) {
                 swap(arr, j - 1, j)
             }
         }
     }
 }
-
-
-
-
 
 /**
  * Pick an element in the array as a pivot (last element in this implementation).
@@ -87,14 +71,13 @@ let bubbleSort = arr => {
  */
 let quickSort = arr => {
 
+    // a helper inner function
     let quickSort = (arr, begin, end) => {
         if (begin < end) {
-
             let pivot_idx = end;
             let j = begin - 1;
-
+            
             for (let i = begin; i < end; i++) {
-
                 if (arr[pivot_idx] > arr[i]) {
                     j++;
                     swap(arr, j, i);
@@ -107,13 +90,10 @@ let quickSort = arr => {
             quickSort(arr, pivot_idx + 1, end);
         }
     }
-
+    
+    // call the inner function to start the sorting
     quickSort(arr, 0, arr.length - 1);
 }
-
-
-
-
 
 /**
  * Merge sort
@@ -163,9 +143,6 @@ let mergeSort = arr => {
     }
 }
 
-
-
-
 /**
  * Counting Sort
  * 
@@ -214,10 +191,6 @@ function countingSort(arr) {
     return result;
 }
 
-
-
-
-
 /**
  * Swap 2 indices in an array.
  * 
@@ -235,21 +208,15 @@ let swap = (arr, idx1, idx2) => {
 }
 
 
-
-
-
-
 ///////////////////////////////////////////////////////////////
 //                          TEST CODE                        //
 ///////////////////////////////////////////////////////////////
-
 
 // Generate 2 identical arrays of size 500 that contain random integers.
 // Call the built in sort function to sort the first array.
 // Then use a sorting method implemented above to sort the second array.
 // If both arrays are the same after sorting, the sorting method implemented is working.
 // Repeat this process 1000 times to make sure all edge cases are reached.
-
 
 let passed = true;
 
